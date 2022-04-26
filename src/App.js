@@ -1,11 +1,19 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Homepage from "./components/Homepage";
 import NavBar from "./components/NavBar";
+import ShopPage from "./components/ShopPage";
 
 function App() {
   return (
-    <div className="App">
-      <NavBar />
-      <h1>Shopping cart</h1>
-    </div>
+    <BrowserRouter>
+      <div className="App">
+        <NavBar />
+        <Routes>
+          <Route path="/" element={<Homepage />} />
+          <Route path="/shop" element={<ShopPage />} />
+        </Routes>
+      </div>
+    </BrowserRouter>
   );
 }
 
