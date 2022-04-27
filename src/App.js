@@ -1,13 +1,19 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import Homepage from "./components/Homepage";
-import NavBar from "./components/NavBar";
 import ShopPage from "./components/ShopPage";
 
 function App() {
   return (
     <BrowserRouter>
       <div className="App">
-        <NavBar />
+        <nav className="flex p-2 justify-around bg-blue-100 h-16 items-center">
+          <div className="clickable btn bg-green-300 select-none">
+            <Link to="/">Home</Link>
+          </div>
+          <div className="clickable btn bg-green-300 select-none">
+            <Link to="shop">Shop</Link>
+          </div>
+        </nav>
         <Routes>
           <Route path="/" element={<Homepage />} />
           <Route path="/shop" element={<ShopPage />} />

@@ -1,3 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .clickable {
+    @apply hover:opacity-80 active:opacity-100 cursor-pointer active:cursor-default;
+  }
+
+  .card {
+    @apply flex flex-col p-4 text-center gap-2 rounded-lg shadow-md hover:shadow-lg;
+  }
+
+  .btn {
+    @apply px-4 py-1.5 rounded-md;
+  }
+}
