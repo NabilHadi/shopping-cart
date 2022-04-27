@@ -1,7 +1,6 @@
 import { unmountComponentAtNode } from "react-dom";
 import { render, screen } from "@testing-library/react";
 import App from "../App";
-import Homepage from "../components/Homepage";
 import userEvent from "@testing-library/user-event";
 
 let container = null;

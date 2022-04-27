@@ -5,19 +5,33 @@ import ShopPage from "./components/ShopPage";
 function App() {
   return (
     <BrowserRouter>
-      <div className="App">
-        <nav className="flex p-2 justify-around bg-blue-100 h-16 items-center">
-          <Link to="/" className="clickable btn bg-green-300 select-none">
-            Home
-          </Link>
-          <Link to="shop" className="clickable btn bg-green-300 select-none">
-            Shop
-          </Link>
-        </nav>
-        <Routes>
-          <Route path="/" element={<Homepage />} />
-          <Route path="/shop" element={<ShopPage />} />
-        </Routes>
+      <div className="App flex justify-center bg-slate-100">
+        <div className=" max-w-5xl flex-1">
+          <header className="font-monotes text-8xl text-center p-4 bg-white">
+            ICONS
+          </header>
+          <nav className="flex justify-center h-17 px-3 items-center bg-white border-t border-neutral-300">
+            <ul className="p-4">
+              <Link
+                to="/"
+                className="clickable btn font-semibold select-none mr-4"
+              >
+                Home
+              </Link>
+              <Link
+                to="shop"
+                className="clickable btn font-semibold select-none"
+              >
+                Shop
+              </Link>
+            </ul>
+          </nav>
+          <div className="h-10"></div>
+          <Routes>
+            <Route path="/" element={<Homepage />} />
+            <Route path="/shop" element={<ShopPage />} />
+          </Routes>
+        </div>
       </div>
     </BrowserRouter>
   );

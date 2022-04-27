@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  @font-face {
+    font-family: "Monotes";
+    font-weight: 900;
+    src: url("./Monotes-EaRqg.ttf");
+  }
+}
+
 @layer components {
   .clickable {
     @apply hover:opacity-80 active:opacity-100 cursor-pointer active:cursor-default;
