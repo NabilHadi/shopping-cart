@@ -7,12 +7,12 @@ function App() {
     <BrowserRouter>
       <div className="App">
         <nav className="flex p-2 justify-around bg-blue-100 h-16 items-center">
-          <div className="clickable btn bg-green-300 select-none">
-            <Link to="/">Home</Link>
-          </div>
-          <div className="clickable btn bg-green-300 select-none">
-            <Link to="shop">Shop</Link>
-          </div>
+          <Link to="/" className="clickable btn bg-green-300 select-none">
+            Home
+          </Link>
+          <Link to="shop" className="clickable btn bg-green-300 select-none">
+            Shop
+          </Link>
         </nav>
         <Routes>
           <Route path="/" element={<Homepage />} />
