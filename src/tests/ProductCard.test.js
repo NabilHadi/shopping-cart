@@ -22,7 +22,7 @@ describe("ProductCard", () => {
     const { getByText, getByAltText, getByRole } = render(
       <ProductCard
         productName="test1"
-        productPic="imgsrc"
+        productPic={<img src="imgsrc" alt="testAlt" />}
         productAlt="testAlt"
       />,
       { container }
@@ -37,27 +37,15 @@ describe("ProductCard", () => {
   });
 
   it("renders input element with value of 1", () => {
-    const { getByRole } = render(
-      <ProductCard
-        productName="test1"
-        productPic="imgsrc"
-        productAlt="testAlt"
-      />,
-      { container }
-    );
+    const { getByRole } = render(<ProductCard />, {
+      container,
+    });
 
     expect(getByRole("textbox", { name: /product count/i }).value).toMatch(/1/);
   });
 
   it("input element accepts only positve numbers", () => {
-    const { getByRole } = render(
-      <ProductCard
-        productName="test1"
-        productPic="imgsrc"
-        productAlt="testAlt"
-      />,
-      { container }
-    );
+    const { getByRole } = render(<ProductCard />, { container });
 
     const input = getByRole("textbox");
 
@@ -83,14 +71,7 @@ describe("ProductCard", () => {
   });
 
   it("renders increase and decrease button", () => {
-    const { getByRole } = render(
-      <ProductCard
-        productName="test1"
-        productPic="imgsrc"
-        productAlt="testAlt"
-      />,
-      { container }
-    );
+    const { getByRole } = render(<ProductCard />, { container });
 
     const increaseBtn = getByRole("button", {
       name: /increase product count/i,
@@ -104,14 +85,7 @@ describe("ProductCard", () => {
   });
 
   it("clicking increase and decrease buttons changes the product count", () => {
-    const { getByRole } = render(
-      <ProductCard
-        productName="test1"
-        productPic="imgsrc"
-        productAlt="testAlt"
-      />,
-      { container }
-    );
+    const { getByRole } = render(<ProductCard />, { container });
 
     const productCountInput = getByRole("textbox", { name: /product count/i });
     const increaseBtn = getByRole("button", {
@@ -135,14 +109,7 @@ describe("ProductCard", () => {
   });
 
   it("renders Add to cart button", () => {
-    const { getByRole } = render(
-      <ProductCard
-        productName="test1"
-        productPic="imgsrc"
-        productAlt="testAlt"
-      />,
-      { container }
-    );
+    const { getByRole } = render(<ProductCard />, { container });
 
     const addToCartBtn = getByRole("button", { name: /add to cart/i });
 
@@ -150,14 +117,7 @@ describe("ProductCard", () => {
   });
 
   it("clicking add to cart button resets product count to 1", () => {
-    const { getByRole } = render(
-      <ProductCard
-        productName="test1"
-        productPic="imgsrc"
-        productAlt="testAlt"
-      />,
-      { container }
-    );
+    const { getByRole } = render(<ProductCard />, { container });
 
     const addToCartBtn = getByRole("button", { name: /add to cart/i });
     const productCountInput = getByRole("textbox", { name: /product count/i });

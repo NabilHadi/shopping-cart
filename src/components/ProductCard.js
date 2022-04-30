@@ -25,9 +25,7 @@ const ProductCard = ({ productName, productPic, productAlt }) => {
   return (
     <div>
       <div>{productName}</div>
-      <div>
-        <img src={productPic} alt={productAlt} />
-      </div>
+      <div>{productPic}</div>
       <div>
         <input
           type="text"
