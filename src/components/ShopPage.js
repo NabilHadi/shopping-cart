@@ -1,5 +1,7 @@
+import Page from "./Page";
+
 const ShopPage = () => {
-  return <main id="shoppage">Shop Page</main>;
+  return <Page id="shoppage">Shop Page</Page>;
 };
 
 export default ShopPage;

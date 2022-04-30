@@ -5,7 +5,7 @@ import ShopPage from "./components/ShopPage";
 function App() {
   return (
     <BrowserRouter>
-      <div className="App flex justify-center bg-slate-100">
+      <div className="App flex justify-center bg-slate-100 min-h-screen">
         <div className=" max-w-5xl flex-1">
           <header className="font-monotes text-8xl text-center p-4 bg-white">
             ICONS
@@ -26,7 +26,7 @@ function App() {
               </Link>
             </ul>
           </nav>
-          <div className="h-10"></div>
+          <div className="h-6"></div>
           <Routes>
             <Route path="/" element={<Homepage />} />
             <Route path="/shop" element={<ShopPage />} />

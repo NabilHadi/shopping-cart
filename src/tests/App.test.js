@@ -18,13 +18,29 @@ afterEach(() => {
 });
 
 describe("App", () => {
+  it("renders header with ICONS word", () => {
+    const { getByRole } = render(<App />, { container });
+
+    const header = getByRole("heading");
+
+    expect(header.textContent).toMatch(/icons/i);
+  });
+
+  it("renders navigation bar", () => {
+    const { getByRole } = render(<App />, { container });
+
+    const nav = getByRole("navigation");
+
+    expect(nav).toBeDefined();
+  });
+
   it("renders home and shop links", () => {
     const { getAllByRole } = render(<App />, { container });
 
     const links = getAllByRole("link");
 
-    expect(links[0].textContent).toMatch(/home/i);
-    expect(links[1].textContent).toMatch(/shop/i);
+    expect(links.some((l) => l.textContent.match(/home/i))).toBe(true);
+    expect(links.some((l) => l.textContent.match(/shop/i))).toBe(true);
   });
 
   it("renders homepage by default", () => {
