@@ -2,6 +2,8 @@ import { unmountComponentAtNode } from "react-dom";
 import { render } from "@testing-library/react";
 import ProductCard from "../components/ProductCard";
 import userEvent from "@testing-library/user-event";
+import Icon from "@mdi/react";
+import { mdiAbacus } from "@mdi/js";
 
 let container = null;
 beforeEach(() => {
@@ -19,21 +21,17 @@ afterEach(() => {
 
 describe("ProductCard", () => {
   it("renders a card with correct information", () => {
-    const { getByText, getByAltText, getByRole } = render(
+    const { getByText, getByRole } = render(
       <ProductCard
         productName="test1"
-        productPic={<img src="imgsrc" alt="testAlt" />}
+        productPic={<Icon role="img" title="Abacus" path={mdiAbacus} />}
         productAlt="testAlt"
       />,
       { container }
     );
 
     expect(getByText("test1")).toBeDefined();
-    expect(getByAltText("testAlt")).toBeDefined();
-    expect(getByRole("img", { name: "testAlt" })).toBeDefined();
-    expect(getByRole("img", { name: "testAlt" }).getAttribute("src")).toBe(
-      "imgsrc"
-    );
+    expect(getByRole("img", { name: "Abacus" })).toBeDefined();
   });
 
   it("renders input element with value of 1", () => {
