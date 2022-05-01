@@ -4,6 +4,7 @@ import "@testing-library/jest-dom";
 import ProductsContainer from "../components/ProductsContainer";
 import Icon from "@mdi/react";
 import { mdiAbacus, mdiAbTesting, mdiAccessPoint } from "@mdi/js";
+import { createProduct } from "../ProductFactory";
 
 let container = null;
 beforeEach(() => {
@@ -20,21 +21,18 @@ afterEach(() => {
 });
 
 const fakeProducts = [
-  {
-    id: 1,
+  createProduct({
     productName: "productName1",
     productPic: <Icon role="img" title="Abacus" path={mdiAbacus} />,
-  },
-  {
-    id: 2,
+  }),
+  createProduct({
     productName: "productName2",
     productPic: <Icon role="img" title="Testing" path={mdiAbTesting} />,
-  },
-  {
-    id: 3,
+  }),
+  createProduct({
     productName: "productName3",
     productPic: <Icon role="img" title="AccessPoint" path={mdiAccessPoint} />,
-  },
+  }),
 ];
 
 describe("ProductsContainer", () => {
@@ -62,12 +60,12 @@ describe("ProductsContainer", () => {
       { container }
     );
 
-    getByRole("listitem", { name: `${fakeProducts[0].productName}` });
-    getByRole("listitem", { name: `${fakeProducts[1].productName}` });
-    getByRole("listitem", { name: `${fakeProducts[2].productName}` });
+    getByRole("listitem", { name: `${fakeProducts[0].name}` });
+    getByRole("listitem", { name: `${fakeProducts[1].name}` });
+    getByRole("listitem", { name: `${fakeProducts[2].name}` });
 
-    getByRole("img", { name: `${fakeProducts[0].productPic.props.title}` });
-    getByRole("img", { name: `${fakeProducts[1].productPic.props.title}` });
-    getByRole("img", { name: `${fakeProducts[2].productPic.props.title}` });
+    getByRole("img", { name: `${fakeProducts[0].pic.props.title}` });
+    getByRole("img", { name: `${fakeProducts[1].pic.props.title}` });
+    getByRole("img", { name: `${fakeProducts[2].pic.props.title}` });
   });
 });

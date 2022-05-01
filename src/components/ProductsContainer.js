@@ -12,14 +12,10 @@ const ProductsContainer = ({ products }) => {
   return (
     <div>
       <ul aria-label="Products list">
-        {products.map((p) => {
+        {products.map((product) => {
           return (
-            <li key={p.id} aria-label={p.productName}>
-              <ProductCard
-                productId={p.id}
-                productName={p.productName}
-                productPic={p.productPic}
-              />
+            <li key={product.id} aria-label={product.name}>
+              <ProductCard product={product} />
             </li>
           );
         })}

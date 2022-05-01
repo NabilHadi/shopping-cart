@@ -4,6 +4,7 @@ import ProductCard from "../components/ProductCard";
 import userEvent from "@testing-library/user-event";
 import Icon from "@mdi/react";
 import { mdiAbacus } from "@mdi/js";
+import { createProduct } from "../ProductFactory";
 
 let container = null;
 beforeEach(() => {
@@ -19,15 +20,18 @@ afterEach(() => {
   container = null;
 });
 
+const fakeProduct = createProduct({
+  productName: "test1",
+  productPic: <Icon role="img" title="Abacus" path={mdiAbacus} />,
+});
+
 describe("ProductCard", () => {
   it("renders a card with correct information", () => {
     const { getByText, getByRole } = render(
-      <ProductCard
-        productName="test1"
-        productPic={<Icon role="img" title="Abacus" path={mdiAbacus} />}
-        productAlt="testAlt"
-      />,
-      { container }
+      <ProductCard product={fakeProduct} />,
+      {
+        container,
+      }
     );
 
     expect(getByText("test1")).toBeDefined();
@@ -35,7 +39,7 @@ describe("ProductCard", () => {
   });
 
   it("renders input element with value of 1", () => {
-    const { getByRole } = render(<ProductCard />, {
+    const { getByRole } = render(<ProductCard product={fakeProduct} />, {
       container,
     });
 
@@ -43,7 +47,9 @@ describe("ProductCard", () => {
   });
 
   it("input element accepts only positve numbers", () => {
-    const { getByRole } = render(<ProductCard />, { container });
+    const { getByRole } = render(<ProductCard product={fakeProduct} />, {
+      container,
+    });
 
     const input = getByRole("textbox");
 
@@ -69,7 +75,9 @@ describe("ProductCard", () => {
   });
 
   it("renders increase and decrease button", () => {
-    const { getByRole } = render(<ProductCard />, { container });
+    const { getByRole } = render(<ProductCard product={fakeProduct} />, {
+      container,
+    });
 
     const increaseBtn = getByRole("button", {
       name: /increase product count/i,
@@ -83,7 +91,9 @@ describe("ProductCard", () => {
   });
 
   it("clicking increase and decrease buttons changes the product count", () => {
-    const { getByRole } = render(<ProductCard />, { container });
+    const { getByRole } = render(<ProductCard product={fakeProduct} />, {
+      container,
+    });
 
     const productCountInput = getByRole("textbox", { name: /product count/i });
     const increaseBtn = getByRole("button", {
@@ -107,7 +117,9 @@ describe("ProductCard", () => {
   });
 
   it("count doesn't go below 1 when clicking decrease btn", () => {
-    const { getByRole } = render(<ProductCard />, { container });
+    const { getByRole } = render(<ProductCard product={fakeProduct} />, {
+      container,
+    });
 
     const productCountInput = getByRole("textbox", { name: /product count/i });
     const decreaseBtn = getByRole("button", {
@@ -121,7 +133,9 @@ describe("ProductCard", () => {
   });
 
   it("renders Add to cart button", () => {
-    const { getByRole } = render(<ProductCard />, { container });
+    const { getByRole } = render(<ProductCard product={fakeProduct} />, {
+      container,
+    });
 
     const addToCartBtn = getByRole("button", { name: /add to cart/i });
 
@@ -129,7 +143,9 @@ describe("ProductCard", () => {
   });
 
   it("clicking add to cart button resets product count to 1", () => {
-    const { getByRole } = render(<ProductCard />, { container });
+    const { getByRole } = render(<ProductCard product={fakeProduct} />, {
+      container,
+    });
 
     const addToCartBtn = getByRole("button", { name: /add to cart/i });
     const productCountInput = getByRole("textbox", { name: /product count/i });

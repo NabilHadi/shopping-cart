@@ -2,7 +2,7 @@ import { useState } from "react";
 
 const numRegExp = /^\b[1-9][0-9]*\b$/;
 
-const ProductCard = ({ productId, productName, productPic }) => {
+const ProductCard = ({ product }) => {
   const [inputValue, setInputValue] = useState(1);
 
   const handleOnChange = (e) => {
@@ -24,9 +24,9 @@ const ProductCard = ({ productId, productName, productPic }) => {
   };
 
   return (
-    <div id={productId}>
-      <div>{productName}</div>
-      <div>{productPic}</div>
+    <div id={product.id}>
+      <div>{product.name}</div>
+      <div>{product.pic}</div>
       <div>
         <input
           type="text"
