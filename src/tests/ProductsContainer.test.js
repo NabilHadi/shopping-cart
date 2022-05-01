@@ -1,5 +1,6 @@
 import { unmountComponentAtNode } from "react-dom";
-import { render } from "@testing-library/react";
+import { render, within } from "@testing-library/react";
+import "@testing-library/jest-dom";
 import ProductsContainer from "../components/ProductsContainer";
 import Icon from "@mdi/react";
 import { mdiAbacus, mdiAbTesting, mdiAccessPoint } from "@mdi/js";
@@ -38,35 +39,35 @@ const fakeProducts = [
 
 describe("ProductsContainer", () => {
   it("renders no products msg when passed empty products list", () => {
-    const { getByRole } = render(<ProductsContainer />, { container });
+    const { getByText } = render(<ProductsContainer />, { container });
 
-    const noProductsMsg = getByRole("heading");
-
-    expect(noProductsMsg.textContent).toMatch(/no products available/i);
+    expect(getByText(/no products available/i)).toBeInTheDocument();
   });
 
   it("renders correct products list length", () => {
-    const { getAllByRole } = render(
+    const { getByRole } = render(
       <ProductsContainer products={fakeProducts} />,
       { container }
     );
 
-    const productsList = getAllByRole("listitem");
+    const productsUl = getByRole("list");
+    const productsItems = within(productsUl).getAllByRole("listitem");
 
-    expect(productsList.length).toBe(fakeProducts.length);
+    expect(productsItems.length).toBe(fakeProducts.length);
   });
 
   it("renders correct products list items", () => {
-    const { getByText, getByRole } = render(
+    const { getByRole } = render(
       <ProductsContainer products={fakeProducts} />,
       { container }
     );
 
-    getByText("productName1");
-    getByRole("img", { name: /Abacus/i });
-    getByText("productName2");
-    getByRole("img", { name: /Testing/i });
-    getByText("productName3");
-    getByRole("img", { name: /AccessPoint/i });
+    getByRole("listitem", { name: `${fakeProducts[0].productName}` });
+    getByRole("listitem", { name: `${fakeProducts[1].productName}` });
+    getByRole("listitem", { name: `${fakeProducts[2].productName}` });
+
+    getByRole("img", { name: `${fakeProducts[0].productPic.props.title}` });
+    getByRole("img", { name: `${fakeProducts[1].productPic.props.title}` });
+    getByRole("img", { name: `${fakeProducts[2].productPic.props.title}` });
   });
 });

@@ -15,6 +15,7 @@ const ProductCard = ({ productId, productName, productPic }) => {
   };
 
   const handleDecreaseBtnClick = () => {
+    if (inputValue - 1 < 1) return;
     setInputValue(inputValue - 1);
   };
 

@@ -106,6 +106,20 @@ describe("ProductCard", () => {
     expect(Number(productCountInput.value)).toBe(currentValue - 2);
   });
 
+  it("count doesn't go below 1 when clicking decrease btn", () => {
+    const { getByRole } = render(<ProductCard />, { container });
+
+    const productCountInput = getByRole("textbox", { name: /product count/i });
+    const decreaseBtn = getByRole("button", {
+      name: /decrease product count/i,
+    });
+
+    userEvent.type(productCountInput, "{selectall}{backspace}1");
+
+    userEvent.dblClick(decreaseBtn);
+    expect(Number(productCountInput.value)).toBe(1);
+  });
+
   it("renders Add to cart button", () => {
     const { getByRole } = render(<ProductCard />, { container });
 
