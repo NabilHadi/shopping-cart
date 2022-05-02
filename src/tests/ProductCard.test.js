@@ -53,24 +53,24 @@ describe("ProductCard", () => {
 
     const input = getByRole("textbox");
 
-    userEvent.type(input, "{selectall}{backspace}hello1");
+    userEvent.type(input, "{selectall}{backspace}hello");
     expect(getByRole("textbox", { name: /product count/i }).value).toMatch(
-      /^\b1\b$/
+      /^$/
     );
 
     userEvent.type(input, "3");
     expect(getByRole("textbox", { name: /product count/i }).value).toMatch(
-      /^\b13\b$/
+      /^\b3\b$/
     );
 
     userEvent.type(input, "faa");
     expect(getByRole("textbox", { name: /product count/i }).value).toMatch(
-      /^\b13\b$/
+      /^\b3\b$/
     );
 
-    userEvent.type(input, "{selectall}{backspace}0");
+    userEvent.type(input, "{selectall}{backspace}7");
     expect(getByRole("textbox", { name: /product count/i }).value).toMatch(
-      /^$/
+      /^7$/
     );
   });
 
@@ -132,6 +132,22 @@ describe("ProductCard", () => {
     expect(Number(productCountInput.value)).toBe(1);
   });
 
+  it("clicking decrease button when count is empty sets it to 1", () => {
+    const { getByRole } = render(<ProductCard product={fakeProduct} />, {
+      container,
+    });
+
+    const productCountInput = getByRole("textbox", { name: /product count/i });
+    const decreaseBtn = getByRole("button", {
+      name: /decrease product count/i,
+    });
+
+    userEvent.type(productCountInput, "{selectall}{backspace}");
+
+    userEvent.dblClick(decreaseBtn);
+    expect(Number(productCountInput.value)).toBe(1);
+  });
+
   it("renders Add to cart button", () => {
     const { getByRole } = render(<ProductCard product={fakeProduct} />, {
       container,
@@ -155,5 +171,73 @@ describe("ProductCard", () => {
 
     userEvent.click(addToCartBtn);
     expect(productCountInput.value).toMatch(/^\b1\b$/);
+  });
+
+  it("clicking add to cart button calls addToCart callback function", () => {
+    const onAddToCartClickMock = jest.fn();
+    const { getByRole } = render(
+      <ProductCard
+        product={fakeProduct}
+        onAddToCartClick={onAddToCartClickMock}
+      />,
+      {
+        container,
+      }
+    );
+
+    const addToCartBtn = getByRole("button", { name: /add to cart/i });
+
+    expect(onAddToCartClickMock).toBeCalledTimes(0);
+    userEvent.click(addToCartBtn);
+    expect(onAddToCartClickMock).toBeCalledTimes(1);
+  });
+
+  it("clicking add to cart button calls addToCart callback function with correct arguments", () => {
+    const onAddToCartClickMock = jest.fn();
+    const { getByRole } = render(
+      <ProductCard
+        product={fakeProduct}
+        onAddToCartClick={onAddToCartClickMock}
+      />,
+      {
+        container,
+      }
+    );
+
+    const addToCartBtn = getByRole("button", { name: /add to cart/i });
+
+    const productCountInput = getByRole("textbox", { name: /product count/i });
+    userEvent.type(productCountInput, "{selectall}{backspace}1");
+    userEvent.click(addToCartBtn);
+    expect(onAddToCartClickMock).toHaveBeenNthCalledWith(1, fakeProduct, 1);
+
+    userEvent.type(productCountInput, "{selectall}{backspace}12");
+    userEvent.click(addToCartBtn);
+    expect(onAddToCartClickMock).toHaveBeenNthCalledWith(2, fakeProduct, 12);
+  });
+
+  it("clicking add to cart button when input is empty or 0 does not call addToCart function", () => {
+    const onAddToCartClickMock = jest.fn();
+    const { getByRole } = render(
+      <ProductCard
+        product={fakeProduct}
+        onAddToCartClick={onAddToCartClickMock}
+      />,
+      {
+        container,
+      }
+    );
+
+    const addToCartBtn = getByRole("button", { name: /add to cart/i });
+
+    const productCountInput = getByRole("textbox", { name: /product count/i });
+
+    userEvent.type(productCountInput, "{selectall}{backspace}");
+    userEvent.click(addToCartBtn);
+    expect(onAddToCartClickMock).not.toHaveBeenCalled();
+
+    userEvent.type(productCountInput, "{selectall}{backspace}0");
+    userEvent.click(addToCartBtn);
+    expect(onAddToCartClickMock).not.toHaveBeenCalled();
   });
 });

@@ -1,27 +1,35 @@
 import { useState } from "react";
 
-const numRegExp = /^\b[1-9][0-9]*\b$/;
+const numRegExp = /^\b[0-9]*\b$|^$/;
 
-const ProductCard = ({ product }) => {
+const ProductCard = ({ product, onAddToCartClick }) => {
   const [inputValue, setInputValue] = useState(1);
 
   const handleOnChange = (e) => {
-    if (!numRegExp.test(e.target.value) && e.target.value !== "") return;
+    if (!numRegExp.test(e.target.value)) return;
     setInputValue(e.target.value);
   };
 
   const handleIncreaseBtnClick = () => {
-    setInputValue(inputValue + 1);
+    setInputValue(Number(inputValue) + 1);
   };
 
   const handleDecreaseBtnClick = () => {
-    if (inputValue - 1 < 1) return;
-    setInputValue(inputValue - 1);
+    if (Number(inputValue) < 1) {
+      setInputValue(1);
+    } else {
+      setInputValue(Number(inputValue) - 1 < 1 ? 1 : Number(inputValue) - 1);
+    }
   };
 
   const handleAddToCardBtnClick = () => {
+    onAddToCartClick &&
+      Number(inputValue) > 0 &&
+      onAddToCartClick(product, Number(inputValue));
     setInputValue(1);
   };
+
+  const handleOnBlur = (e) => {};
 
   return (
     <div id={product.id}>
@@ -35,6 +43,7 @@ const ProductCard = ({ product }) => {
           pattern="[0-9]"
           value={inputValue}
           onChange={handleOnChange}
+          onBlur={handleOnBlur}
           aria-label="Product count"
         />
         <button
