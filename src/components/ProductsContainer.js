@@ -1,6 +1,6 @@
 import ProductCard from "./ProductCard";
 
-const ProductsContainer = ({ products }) => {
+const ProductsContainer = ({ products, onAddToCart }) => {
   if (!products) {
     return (
       <div>
@@ -15,7 +15,7 @@ const ProductsContainer = ({ products }) => {
         {products.map((product) => {
           return (
             <li key={product.id} aria-label={product.name}>
-              <ProductCard product={product} />
+              <ProductCard product={product} onAddToCartClick={onAddToCart} />
             </li>
           );
         })}

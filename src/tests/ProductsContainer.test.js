@@ -5,6 +5,7 @@ import ProductsContainer from "../components/ProductsContainer";
 import Icon from "@mdi/react";
 import { mdiAbacus, mdiAbTesting, mdiAccessPoint } from "@mdi/js";
 import { createProduct } from "../ProductFactory";
+import userEvent from "@testing-library/user-event";
 
 let container = null;
 beforeEach(() => {
@@ -67,5 +68,36 @@ describe("ProductsContainer", () => {
     getByRole("img", { name: `${fakeProducts[0].pic.props.title}` });
     getByRole("img", { name: `${fakeProducts[1].pic.props.title}` });
     getByRole("img", { name: `${fakeProducts[2].pic.props.title}` });
+  });
+
+  it("clicking on a add to cart button for a product calls addToCart function with correct arguments", () => {
+    const onAddToCartClickMock = jest.fn();
+    const { getByRole } = render(
+      <ProductsContainer
+        products={fakeProducts}
+        onAddToCart={onAddToCartClickMock}
+      />,
+      { container }
+    );
+
+    const product1ListItem = getByRole("listitem", {
+      name: `${fakeProducts[0].name}`,
+    });
+
+    const productInput = within(product1ListItem).getByRole("textbox", {
+      name: /product count/i,
+    });
+
+    const addToCartBtn = within(product1ListItem).getByRole("button", {
+      name: /add to cart/i,
+    });
+
+    userEvent.type(productInput, "{selectall}{backspace}24");
+    userEvent.click(addToCartBtn);
+    expect(onAddToCartClickMock).toHaveBeenNthCalledWith(
+      1,
+      fakeProducts[0],
+      24
+    );
   });
 });
