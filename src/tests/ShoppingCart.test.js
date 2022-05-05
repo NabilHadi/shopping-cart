@@ -25,11 +25,11 @@ const cartItems = [
 
 describe("ShoppingCart", () => {
   it("renders correct Items count", () => {
-    const { getByLabelText } = render(<ShoppingCart cartItems={cartItems} />, {
+    const { getByText } = render(<ShoppingCart cartItems={cartItems} />, {
       container,
     });
 
-    expect(getByLabelText(/items count/i).textContent).toMatch(/7/);
+    getByText(/7 items/i);
   });
 
   it("renders products with correct info", () => {
@@ -48,7 +48,7 @@ describe("ShoppingCart", () => {
   });
 
   it("renders correct total", () => {
-    const { getByLabelText } = render(<ShoppingCart cartItems={cartItems} />, {
+    const { getByText } = render(<ShoppingCart cartItems={cartItems} />, {
       container,
     });
 
@@ -56,7 +56,7 @@ describe("ShoppingCart", () => {
       return pre + curr.count * curr.product.price;
     }, 0);
 
-    expect(Number(getByLabelText(/total price/i).textContent)).toBe(totalPrice);
+    getByText(new RegExp(`total:\\s*${totalPrice}`, "i"));
   });
 
   it("renders pay button", () => {

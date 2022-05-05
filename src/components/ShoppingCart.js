@@ -1,21 +1,28 @@
 const ShoppingCart = ({ cartItems }) => {
+  if (!cartItems) {
+    cartItems = [];
+  }
   return (
-    <div>
-      <div aria-label="items count">
+    <div data-testid="shopping-cart">
+      <div>
         {cartItems.reduce((pre, curr) => {
           return pre + curr.count;
-        }, 0)}
+        }, 0)}{" "}
+        items
       </div>
-      {cartItems.map((item) => {
-        return (
-          <div key={item.product.id}>
-            <div>{item.product.pic}</div>
-            <div>{item.product.name}</div>
-            <div>{item.product.price}</div>
-          </div>
-        );
-      })}
-      <div aria-label="total price">
+      <ul>
+        {cartItems.map((item) => {
+          return (
+            <li key={item.product.id}>
+              <div>{item.product.pic}</div>
+              <div>{item.product.name}</div>
+              <div>{item.product.price}</div>
+            </li>
+          );
+        })}
+      </ul>
+      <div>
+        Total:
         {cartItems.reduce((pre, curr) => {
           return pre + curr.product.price * curr.count;
         }, 0)}
