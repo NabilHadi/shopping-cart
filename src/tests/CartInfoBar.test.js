@@ -31,7 +31,7 @@ describe("CartInfoBar", () => {
       container,
     });
 
-    expect(getByLabelText(/items count/i).textContent).toMatch(/4/);
+    expect(getByLabelText(/items in cart count/i).textContent).toMatch(/4/);
   });
 
   it("renders checkout button", () => {
