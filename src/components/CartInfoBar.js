@@ -1,7 +1,8 @@
 const CartInforBar = ({ itemsCount, onCheckout }) => {
   return (
-    <div>
-      You have {itemsCount} items in your cart
+    <div aria-label="cart info bar">
+      You have <span aria-label="items count">{itemsCount}</span> items in your
+      cart
       <button onClick={onCheckout}>Checkout</button>
     </div>
   );

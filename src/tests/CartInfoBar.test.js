@@ -18,12 +18,20 @@ afterEach(() => {
 });
 
 describe("CartInfoBar", () => {
-  it("renders correct items count", () => {
-    const { getByText } = render(<CartInforBar itemsCount={4} />, {
+  it("renders element with cart info bar label", () => {
+    const { getByLabelText } = render(<CartInforBar itemsCount={4} />, {
       container,
     });
 
-    getByText(/4 items/i);
+    getByLabelText(/cart info bar/i);
+  });
+
+  it("renders correct items count", () => {
+    const { getByLabelText } = render(<CartInforBar itemsCount={4} />, {
+      container,
+    });
+
+    expect(getByLabelText(/items count/i).textContent).toMatch(/4/);
   });
 
   it("renders checkout button", () => {
