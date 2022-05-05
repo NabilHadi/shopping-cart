@@ -23,11 +23,12 @@ afterEach(() => {
 const fakeProduct = createProduct({
   productName: "test1",
   productPic: <Icon role="img" title="Abacus" path={mdiAbacus} />,
+  productPrice: 3.33,
 });
 
 describe("ProductCard", () => {
   it("renders a card with correct information", () => {
-    const { getByText, getByRole } = render(
+    const { getByText, getByRole, getByLabelText } = render(
       <ProductCard product={fakeProduct} />,
       {
         container,
@@ -36,6 +37,9 @@ describe("ProductCard", () => {
 
     expect(getByText("test1")).toBeDefined();
     expect(getByRole("img", { name: "Abacus" })).toBeDefined();
+    expect(Number(getByLabelText(/product price/i).textContent)).toBe(
+      fakeProduct.price
+    );
   });
 
   it("renders input element with value of 1", () => {

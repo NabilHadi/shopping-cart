@@ -35,6 +35,7 @@ const ProductCard = ({ product, onAddToCartClick }) => {
     <div id={product.id}>
       <div>{product.name}</div>
       <div>{product.pic}</div>
+      <div aria-label="product price">{product.price}</div>
       <div>
         <input
           type="text"
