@@ -3,7 +3,7 @@ import ProductCard from "./ProductCard";
 const ProductsContainer = ({ products, onAddToCart }) => {
   return (
     <div>
-      <ul aria-label="Products list">
+      <ul aria-label="Products list" className="grid grid-cols-4 gap-4 p-2">
         {products ? (
           products.map((product) => {
             return (

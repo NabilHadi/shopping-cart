@@ -32,11 +32,14 @@ const ProductCard = ({ product, onAddToCartClick }) => {
   const handleOnBlur = (e) => {};
 
   return (
-    <div id={product.id}>
+    <div id={product.id} className="card">
       <div>{product.name}</div>
-      <div>{product.pic}</div>
-      <div aria-label="product price">{product.price}</div>
-      <div>
+      <div className="">{product.pic}</div>
+      <div aria-label="product price">
+        {product.price}
+        <span>$</span>
+      </div>
+      <div className="flex gap-2">
         <input
           type="text"
           inputMode="numeric"
@@ -46,11 +49,13 @@ const ProductCard = ({ product, onAddToCartClick }) => {
           onChange={handleOnChange}
           onBlur={handleOnBlur}
           aria-label="Product count"
+          className=" w-1/2 text-center"
         />
         <button
           type="button"
           aria-label="increase product count"
           onClick={handleIncreaseBtnClick}
+          className=" btn border clickable"
         >
           +
         </button>
@@ -58,6 +63,7 @@ const ProductCard = ({ product, onAddToCartClick }) => {
           type="button"
           aria-label="decrease product count"
           onClick={handleDecreaseBtnClick}
+          className="btn border clickable"
         >
           -
         </button>
@@ -66,6 +72,7 @@ const ProductCard = ({ product, onAddToCartClick }) => {
         type="button"
         aria-label="add to cart"
         onClick={handleAddToCardBtnClick}
+        className="btn border clickable"
       >
         Add to cart
       </button>

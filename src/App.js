@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import Homepage from "./components/Homepage";
 import ShopPage from "./components/ShopPage";
+import getProducts from "./products";
 
 function App() {
   return (
@@ -29,7 +30,10 @@ function App() {
           <div className="h-6"></div>
           <Routes>
             <Route path="/" element={<Homepage />} />
-            <Route path="/shop" element={<ShopPage />} />
+            <Route
+              path="/shop"
+              element={<ShopPage products={getProducts()} />}
+            />
           </Routes>
         </div>
       </div>
