@@ -5,7 +5,7 @@ import getProducts from "./products";
 
 function App() {
   return (
-    <BrowserRouter basename="/">
+    <BrowserRouter basename="shopping-cart">
       <div className="App flex justify-center bg-slate-100 min-h-screen">
         <div className=" max-w-5xl flex-1">
           <header className="font-monotes text-8xl text-center p-4 bg-white">
