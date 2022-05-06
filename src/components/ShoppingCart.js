@@ -18,7 +18,7 @@ const ShoppingCart = ({ cartItems, onPay }) => {
           </div>
         </div>
 
-        <ul className="flex flex-col gap-2 p-4">
+        <ul className="flex flex-col gap-2 p-4 max-h-96 overflow-y-auto">
           {cartItems.map((item) => {
             return (
               <li
