@@ -1,7 +1,9 @@
 import { unmountComponentAtNode } from "react-dom";
 import { render } from "@testing-library/react";
 import ShoppingCart from "../components/ShoppingCart";
-import getProducts from "../products";
+import { createProduct } from "../ProductFactory";
+import Icon from "@mdi/react";
+import { mdiAbacus, mdiAbjadArabic, mdiCabinAFrame } from "@mdi/js";
 
 let container = null;
 beforeEach(() => {
@@ -18,9 +20,30 @@ afterEach(() => {
 });
 
 const cartItems = [
-  { product: getProducts()[0], count: 4 },
-  { product: getProducts()[1], count: 1 },
-  { product: getProducts()[2], count: 2 },
+  {
+    product: createProduct({
+      productName: "Abacus",
+      productPic: <Icon role="img" title="Abacus" path={mdiAbacus} />,
+      productPrice: 99,
+    }),
+    count: 4,
+  },
+  {
+    product: createProduct({
+      productName: "AbjadArabic",
+      productPic: <Icon role="img" title="AbjadArabic" path={mdiAbjadArabic} />,
+      productPrice: 21,
+    }),
+    count: 1,
+  },
+  {
+    product: createProduct({
+      productName: "CabinAFrame",
+      productPic: <Icon role="img" title="CabinAFrame" path={mdiCabinAFrame} />,
+      productPrice: 10,
+    }),
+    count: 2,
+  },
 ];
 
 describe("ShoppingCart", () => {
@@ -33,7 +56,7 @@ describe("ShoppingCart", () => {
   });
 
   it("renders products with correct info", () => {
-    const { getByRole, getAllByText, getByText } = render(
+    const { getByRole, getByText } = render(
       <ShoppingCart cartItems={cartItems} />,
       {
         container,
@@ -42,7 +65,7 @@ describe("ShoppingCart", () => {
 
     cartItems.forEach((item) => {
       getByRole("img", { name: item.product.name });
-      getAllByText(item.product.name);
+      getByText(item.product.name, { ignore: "title" });
       getByText(item.product.price);
     });
   });
