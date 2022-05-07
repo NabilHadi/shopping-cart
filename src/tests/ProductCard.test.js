@@ -5,6 +5,7 @@ import userEvent from "@testing-library/user-event";
 import Icon from "@mdi/react";
 import { mdiAbacus } from "@mdi/js";
 import { createProduct } from "../ProductFactory";
+import "@testing-library/jest-dom";
 
 let container = null;
 beforeEach(() => {
@@ -28,7 +29,7 @@ const fakeProduct = createProduct({
 
 describe("ProductCard", () => {
   it("renders a card with correct information", () => {
-    const { getByText, getByRole, getByLabelText } = render(
+    const { getByText, getByRole } = render(
       <ProductCard product={fakeProduct} />,
       {
         container,
@@ -37,9 +38,7 @@ describe("ProductCard", () => {
 
     expect(getByText("test1")).toBeDefined();
     expect(getByRole("img", { name: "Abacus" })).toBeDefined();
-    expect(Number(getByLabelText(/product price/i).textContent)).toBe(
-      fakeProduct.price
-    );
+    expect(getByText(fakeProduct.price)).toBeInTheDocument();
   });
 
   it("renders input element with value of 1", () => {
