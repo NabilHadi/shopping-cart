@@ -2,6 +2,7 @@ import { unmountComponentAtNode } from "react-dom";
 import { render, screen } from "@testing-library/react";
 import App from "../App";
 import userEvent from "@testing-library/user-event";
+import { MemoryRouter } from "react-router-dom";
 
 let container = null;
 beforeEach(() => {
@@ -19,7 +20,12 @@ afterEach(() => {
 
 describe("App", () => {
   it("renders header with ICONS word", () => {
-    const { getByRole } = render(<App />, { container });
+    const { getByRole } = render(
+      <MemoryRouter>
+        <App />
+      </MemoryRouter>,
+      { container }
+    );
 
     const header = getByRole("heading");
 
@@ -27,7 +33,12 @@ describe("App", () => {
   });
 
   it("renders navigation bar", () => {
-    const { getByRole } = render(<App />, { container });
+    const { getByRole } = render(
+      <MemoryRouter>
+        <App />
+      </MemoryRouter>,
+      { container }
+    );
 
     const nav = getByRole("navigation");
 
@@ -35,7 +46,12 @@ describe("App", () => {
   });
 
   it("renders home and shop links", () => {
-    const { getAllByRole } = render(<App />, { container });
+    const { getAllByRole } = render(
+      <MemoryRouter>
+        <App />
+      </MemoryRouter>,
+      { container }
+    );
 
     const links = getAllByRole("link");
 
@@ -44,7 +60,12 @@ describe("App", () => {
   });
 
   it("renders homepage by default", () => {
-    render(<App />, { container });
+    render(
+      <MemoryRouter>
+        <App />
+      </MemoryRouter>,
+      { container }
+    );
 
     const main = screen.getByRole("main");
 
@@ -52,7 +73,12 @@ describe("App", () => {
   });
 
   it("renders shop page when shop link is clicked", () => {
-    render(<App />, { container });
+    render(
+      <MemoryRouter>
+        <App />
+      </MemoryRouter>,
+      { container }
+    );
 
     const shopPageLink = screen.getByRole("link", { name: /shop/i });
 
