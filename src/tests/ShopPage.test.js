@@ -58,12 +58,12 @@ describe("ShopPage", () => {
 
     userEvent.type(
       within(firstProduct).getByRole("textbox", { name: /product count/i }),
-      "{selectall}{backspace}10"
+      "{selectall}{backspace}1"
     );
     userEvent.click(
       within(firstProduct).getByRole("button", { name: /add to cart/i })
     );
-    expect(itemsCartCount.textContent).toMatch(/22/i);
+    expect(itemsCartCount.textContent).toMatch(/13/i);
   });
 
   it("shopping cart is not visible by default", () => {
@@ -91,7 +91,7 @@ describe("ShopPage", () => {
     expect(getByTestId("shopping-cart")).toBeInTheDocument();
   });
 
-  it("shows correct items on cart when checout button is clicked", () => {
+  it("shows correct items on cart when checkout button is clicked", () => {
     const products = getProducts();
     const { getByLabelText, getByRole, getByTestId } = render(
       <ShopPage products={products} />,

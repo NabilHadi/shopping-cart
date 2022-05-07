@@ -10,18 +10,22 @@ const ShopPage = ({ products }) => {
 
   const onAddToCartHandler = (product, count) => {
     setCartItems((prevCartItems) => {
+      // find if the product is already in cart
       const itemInCart = prevCartItems.find(
         (item) => item.product.id === product.id
       );
+
+      // if product is found in cart update the count
       if (itemInCart) {
-        return [...prevCartItems].map((item) => {
+        return prevCartItems.map((item) => {
           if (item.product.id === itemInCart.product.id) {
-            item.count = item.count + count;
+            return { ...item, count: item.count + count };
           }
           return item;
         });
       }
 
+      // else add the product to cart
       return [...prevCartItems, { product, count }];
     });
   };
