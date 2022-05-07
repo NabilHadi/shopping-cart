@@ -33,7 +33,7 @@ describe("ShopPage", () => {
     });
   });
 
-  it("clicking on add to cart button for a product changes items count in cart info bar", () => {
+  it.only("clicking on add to cart button for a product changes items count in cart info bar", () => {
     const products = getProducts();
     const { getByLabelText } = render(<ShopPage products={products} />, {
       container,
@@ -63,7 +63,22 @@ describe("ShopPage", () => {
     userEvent.click(
       within(firstProduct).getByRole("button", { name: /add to cart/i })
     );
+
     expect(itemsCartCount.textContent).toMatch(/13/i);
+
+    const secondProduct = within(productsList).getByRole("listitem", {
+      name: products[1].name,
+    });
+
+    userEvent.type(
+      within(secondProduct).getByRole("textbox", { name: /product count/i }),
+      "{selectall}{backspace}3"
+    );
+    userEvent.click(
+      within(secondProduct).getByRole("button", { name: /add to cart/i })
+    );
+
+    expect(itemsCartCount.textContent).toMatch(/16/i);
   });
 
   it("shopping cart is not visible by default", () => {
