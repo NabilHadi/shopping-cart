@@ -9,8 +9,20 @@ const ShopPage = ({ products }) => {
   const [cartItems, setCartItems] = useState([]);
 
   const onAddToCartHandler = (product, count) => {
-    setCartItems((prev) => {
-      return [...prev, { product, count }];
+    setCartItems((prevCartItems) => {
+      const itemInCart = prevCartItems.find(
+        (item) => item.product.id === product.id
+      );
+      if (itemInCart) {
+        return [...prevCartItems].map((item) => {
+          if (item.product.id === itemInCart.product.id) {
+            item.count = item.count + count;
+          }
+          return item;
+        });
+      }
+
+      return [...prevCartItems, { product, count }];
     });
   };
 
@@ -25,7 +37,9 @@ const ShopPage = ({ products }) => {
   return (
     <Page id="shoppage" classname=" flex flex-col mb-4 shadow-md">
       <CartInforBar
-        itemsCount={cartItems.length}
+        itemsCount={cartItems.reduce((prev, next) => {
+          return prev + next.count;
+        }, 0)}
         onCheckout={checkoutBtnClickHandler}
       />
       <ProductsContainer products={products} onAddToCart={onAddToCartHandler} />
