@@ -13,7 +13,7 @@ const CartInforBar = ({ itemsCount, onCheckout }) => {
       </div>
       <button
         onClick={onCheckout}
-        className=" bg-neutral-800 text-white p-2 rounded-lg hover:opacity-75 active:opacity-100 shadow-sm"
+        className=" bg-neutral-800 text-white clickable btn"
       >
         Checkout
       </button>

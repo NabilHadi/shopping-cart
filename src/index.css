@@ -20,6 +20,6 @@
   }
 
   .btn {
-    @apply px-4 py-1.5 rounded-md;
+    @apply px-4 py-1.5 rounded-md transition-transform ease-in-out hover:scale-105 active:scale-90;
   }
 }
