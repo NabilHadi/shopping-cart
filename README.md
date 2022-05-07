@@ -10,7 +10,7 @@ https://nabilhad.me/shopping-cart/
 
 ## Description
 
-A fake store website that sells Icons, Made to utilize Test-driven development (TDD) approach in React
+A fake Shop website that sells Icons, Made to utilize Test-driven development (TDD) approach in React
 
 ## Built with
 
