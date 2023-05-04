@@ -2,7 +2,7 @@
 
 ## Live link
 
-https://nabilhad.me/shopping-cart/
+https://nabilhadi.github.io/shopping-cart/
 
 ## Preview
 
